@@ -1,6 +1,6 @@
 import 'package:shop_app/models/product.dart';
 
-const List<Product> MOCK_PRODUCTS = [
+List<Product> MOCK_PRODUCTS = [
   Product(
     id: 'p1',
     name: 'Red Shirt',
