@@ -15,50 +15,30 @@ class CartListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var removeItem = context.select<Cart, Function>((cart) => cart.remove);
     return Dismissible(
-      key: UniqueKey(),
-      behavior: HitTestBehavior.translucent,
+      key: ValueKey(item.id),
       direction: DismissDirection.horizontal,
       onDismissed: (direction) =>
           removeItem(item.id, direction == DismissDirection.endToStart),
       background: Container(
+        alignment: AlignmentDirectional.centerEnd,
         padding: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
-          color: Theme.of(context).errorColor,
+          color: Theme.of(context).primaryColorLight,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: const [
-                Icon(
-                  Icons.remove,
-                  color: Colors.white,
-                ),
-                Text('Delete 1', style: TextStyle(color: Colors.white)),
-              ],
-            ),
-            Row(
-              children: const [
-                Text(
-                  'Delete all',
-                  style: TextStyle(color: Colors.white),
-                ),
-                Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-              ],
-            )
-          ],
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
         ),
       ),
       dismissThresholds: const {DismissDirection.horizontal: 0.5},
-      child: ListTile(
-        leading: CircleAvatar(
-          child: Text(item.quantity.toString()),
+      child: Card(
+        child: ListTile(
+          leading: CircleAvatar(
+            child: Text(item.quantity.toString()),
+          ),
+          title: Text(item.name),
+          trailing: Text('\$${item.price.toString()}'),
         ),
-        title: Text(item.name),
-        trailing: Text('\$${item.price.toString()}'),
       ),
     );
   }

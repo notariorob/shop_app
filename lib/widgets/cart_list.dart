@@ -13,15 +13,39 @@ class CartList extends StatelessWidget {
     // var products = context.select<Products, List<Product>>((value) => value.fetchAll());
     var cart = context.watch<Cart>();
     var cartItems = cart.fetchAll();
-    print(cartItems);
+    var totalPrice = cart.totalPrice;
 
-    // var productsInCart = products.where((product) => cartItems.keys.contains(product.id));
-    return ListView.builder(
-      itemCount: cartItems.length,
-      itemBuilder: (context, index) {
-        String key = cartItems.keys.elementAt(index);
-        return CartListItem(item: cartItems[key]!);
-      },
+    return Column(
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                const Text('Total'),
+                const Spacer(),
+                Chip(
+                  label: Text('$totalPrice'),
+                ),
+                const SizedBox(width: 10),
+                TextButton(
+                  onPressed: () => {},
+                  child: Text('ORDER NOW'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: cartItems.length,
+            itemBuilder: (context, index) {
+              CartItem item = cartItems.values.elementAt(index);
+              return CartListItem(item: item);
+            },
+          ),
+        ),
+      ],
     );
   }
 }

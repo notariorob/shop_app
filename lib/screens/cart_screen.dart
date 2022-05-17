@@ -12,7 +12,10 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Cart'),
       ),
-      body: const CartList(),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: CartList(),
+      ),
     );
   }
 }

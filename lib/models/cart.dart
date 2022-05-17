@@ -26,6 +26,8 @@ class Cart with ChangeNotifier {
   int get length => _items.length;
 
   bool hasItem(String productId) => _items.keys.contains(productId);
+  double get totalPrice => _items.values
+      .fold(0, (prev, element) => prev + (element.price * element.quantity));
 
   void add(Product product) {
     print('adding ${product.name}');
